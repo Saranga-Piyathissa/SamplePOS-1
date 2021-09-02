@@ -21,10 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
+
 
 public class MainFormController implements Initializable {
 
@@ -43,9 +40,7 @@ public class MainFormController implements Initializable {
     @FXML
     private Label lblDescription;
 
-    /**
-     * Initializes the controller class.
-     */
+
     public void initialize(URL url, ResourceBundle rb) {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), root);
         fadeIn.setFromValue(0.0);
@@ -107,7 +102,7 @@ public class MainFormController implements Initializable {
     }
 
 
-@FXML
+    @FXML
     private void navigate(MouseEvent event) throws IOException {
         if (event.getSource() instanceof ImageView){
             ImageView icon = (ImageView) event.getSource();

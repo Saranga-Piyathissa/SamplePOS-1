@@ -6,10 +6,7 @@ import lk.ijse.pos.entity.Item;
 
 import java.util.ArrayList;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
+
 public interface ItemBO extends SuperBO {
     boolean addItem(ItemDTO item) throws Exception;
 

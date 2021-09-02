@@ -8,10 +8,7 @@ import lk.ijse.pos.entity.Item;
 
 import java.util.ArrayList;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
+
 public class ItemBOImpl implements ItemBO {
 
     private final ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);

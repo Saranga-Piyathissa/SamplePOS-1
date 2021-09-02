@@ -6,10 +6,7 @@ import lk.ijse.pos.entity.Customer;
 
 import java.util.ArrayList;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
+
 public interface CustomerBO extends SuperBO {
     boolean addCustomer(CustomerDTO customer) throws Exception;
 

@@ -1,9 +1,5 @@
 package lk.ijse.pos.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,12 +40,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
 
-public class OrderFormController implements Initializable {
+
+public class OrderFormController<JFXComboBox, JFXTextField, JFXButton, JFXDatePicker> implements Initializable {
 
     private final CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     private final ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
@@ -288,11 +281,9 @@ public class OrderFormController implements Initializable {
     @FXML
     private void btnPlaceOrderOnAction(ActionEvent event) {
         try {
-            /*Add Order Record*/
             OrdersDTO orders = new OrdersDTO(txtOrderID.getText(), parseDate(txtOrderDate.getEditor().getText()), cmbCustomerID.getSelectionModel().getSelectedItem());
 
             ArrayList<OrderDetailsDTO> allOrderDetails = new ArrayList<>();
-            /*Add Order Details to the Table*/
             for (OrderDetailTM orderDetailTM : olOrderDetails) {
                 allOrderDetails.add(new OrderDetailsDTO(txtOrderID.getText(), orderDetailTM.getItemCode(), orderDetailTM.getQty(), new BigDecimal(orderDetailTM.getUnitPrice())));
             }

@@ -8,10 +8,7 @@ import lk.ijse.pos.entity.Customer;
 
 import java.util.ArrayList;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
+
 public class CustomerBOImpl implements CustomerBO {
     /* Property Injection*/
     private final CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);

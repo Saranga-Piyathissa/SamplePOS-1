@@ -4,10 +4,7 @@ import lk.ijse.pos.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.pos.bo.custom.impl.ItemBOImpl;
 import lk.ijse.pos.bo.custom.impl.PurchaseOrderBOImpl;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
+
 public class BOFactory {
     private static BOFactory boFactory;
 

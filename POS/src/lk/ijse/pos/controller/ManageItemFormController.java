@@ -29,12 +29,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
 
-public class ManageItemFormController implements Initializable {
+public class ManageItemFormController<JFXTextField> implements Initializable {
 
 
 
@@ -57,7 +53,6 @@ public class ManageItemFormController implements Initializable {
     private void loadAllItems() {
 
         try {
-            /*Get All Items*/
             ArrayList<ItemDTO> allItems = itemBO.getAllItems();
             /*create a ItemTM type list*/
             ArrayList<ItemTM> allItemsForTable = new ArrayList<>();
@@ -129,7 +124,6 @@ public class ManageItemFormController implements Initializable {
     private void btnSave_OnAction(ActionEvent event) {
         if (addNew) {
             try {
-                /*Add Item*/
                 ItemDTO item = new ItemDTO(txtItemCode.getText(), txtDescription.getText(), new BigDecimal(txtUnitPrice.getText()), Integer.parseInt(txtQty.getText()));
                 boolean b = itemBO.addItem(item);
                 if (b) {
@@ -143,7 +137,6 @@ public class ManageItemFormController implements Initializable {
 
         } else {
             try {
-                /*Update Item*/
                 ItemDTO item = new ItemDTO(txtItemCode.getText(), txtDescription.getText(), new BigDecimal(txtUnitPrice.getText()), Integer.parseInt(txtQty.getText()));
                 boolean b = itemBO.updateItem(item);
                 if (b) {
@@ -166,7 +159,6 @@ public class ManageItemFormController implements Initializable {
         String code = tblItems.getSelectionModel().getSelectedItem().getCode();
 
         try {
-            /*Delete Item*/
             boolean b = itemBO.deleteItem(code);
             if (b) {
                 loadAllItems();

@@ -7,10 +7,7 @@ import lk.ijse.pos.entity.Orders;
 
 import java.util.ArrayList;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
+
 public interface PurchaseOrderBO extends SuperBO {
     boolean purchaseOrder(OrdersDTO dto) throws Exception;
 }

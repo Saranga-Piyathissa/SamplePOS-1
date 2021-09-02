@@ -1,6 +1,5 @@
 package lk.ijse.pos.controller;
 
-import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,9 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pos.AppInitializer;
-import lk.ijse.pos.bo.BOFactory;
-import lk.ijse.pos.bo.custom.CustomerBO;
-import lk.ijse.pos.dto.CustomerDTO;
+import lk.ijse.pos.dao.custom.CustomerDAO;
+import lk.ijse.pos.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.pos.entity.Customer;
 import lk.ijse.pos.view.tblmodel.CustomerTM;
 
@@ -29,15 +27,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author : Sanu Vithanage
- * @since : 0.1.0
- **/
 
-public class ManageCustomerFormController implements Initializable {
+
+public class ManageCustomerFormController<JFXTextField> implements Initializable {
 
     boolean addnew = true;
-
     @FXML
     private AnchorPane root;
     @FXML
@@ -49,18 +43,19 @@ public class ManageCustomerFormController implements Initializable {
     @FXML
     private TableView<CustomerTM> tblCustomers;
 
-    private final CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+    /* Property Injection*/
+    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+
 
     private void loadAllCustomers() {
-
         try {
             /*  get all customers*/
 
-            ArrayList<CustomerDTO> allCustomers = this.customerBO.getAllCustomers();
+            ArrayList<Customer> allCustomers = this.customerDAO.getAll();
             ArrayList<CustomerTM> allCustomersForTable = new ArrayList<>();
 
-            for (CustomerDTO customer : allCustomers) {
-                allCustomersForTable.add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
+            for (Customer customer : allCustomers) {
+                allCustomersForTable.add(new CustomerTM(customer.getcID(), customer.getName(), customer.getAddress()));
             }
             ObservableList<CustomerTM> olCustomers = FXCollections.observableArrayList(allCustomersForTable);
             tblCustomers.setItems(olCustomers);
@@ -71,9 +66,7 @@ public class ManageCustomerFormController implements Initializable {
         }
     }
 
-    /**
-     * Initializes the controller class.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tblCustomers.getColumns().get(0).setStyle("-fx-alignment:center");
@@ -121,7 +114,7 @@ public class ManageCustomerFormController implements Initializable {
 
             try {
                 /*Delete operation*/
-                boolean b = customerBO.deleteCustomer(customerID);
+                boolean b = customerDAO.delete(customerID);
 
                 if (b) {
                     loadAllCustomers();
@@ -156,7 +149,7 @@ public class ManageCustomerFormController implements Initializable {
         if (addnew) {
             try {
                 /* Add Operation*/
-                boolean b = customerBO.addCustomer(new CustomerDTO(txtCustomerId.getText(), txtCustomerName.getText(), txtCustomerAddress.getText()));
+                boolean b = customerDAO.add(new Customer(txtCustomerId.getText(), txtCustomerName.getText(), txtCustomerAddress.getText()));
                 if (b) {
                     loadAllCustomers();
                 } else {
@@ -169,7 +162,7 @@ public class ManageCustomerFormController implements Initializable {
         } else {
             try {
                 //Update Operation
-                boolean b = customerBO.updateCustomer(new CustomerDTO(txtCustomerId.getText(), txtCustomerName.getText(), txtCustomerAddress.getText()));
+                boolean b = customerDAO.update(new Customer(txtCustomerId.getText(), txtCustomerName.getText(), txtCustomerAddress.getText()));
                 if (b) {
                     loadAllCustomers();
                 } else {
